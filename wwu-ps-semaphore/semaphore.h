@@ -9,15 +9,14 @@
 #include <mutex>
 #include <shared_mutex>
 
-class semaphore {
+class Semaphore {
 private:
     int counter;
     std::condition_variable_any cond;
     std::mutex mutex;
 
 public:
-    explicit semaphore(int concurrency = 1);
-    ~semaphore();
+    explicit Semaphore(int concurrency = 1);
     void p();
     void v();
 };

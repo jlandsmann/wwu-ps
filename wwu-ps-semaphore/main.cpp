@@ -6,7 +6,7 @@
 #define THREAD_COUNT 10
 
 std::thread* threads[THREAD_COUNT];
-semaphore* sema = new semaphore();
+Semaphore* sema = new Semaphore();
 
 void* doSomeThing(int id)
 {

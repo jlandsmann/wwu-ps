@@ -4,24 +4,16 @@
 
 #include "semaphore.h"
 
-semaphore::semaphore(int concurrency) {
-    this->counter = concurrency;
-}
+Semaphore::Semaphore(int concurrency) : counter(concurrency) {}
 
-void semaphore::p() {
+void Semaphore::p() {
     std::unique_lock<std::mutex> lock(this->mutex);
-    while (this->counter < 1) {
-        this->cond.wait(lock);
-    }
+    this->cond.wait(lock, [&]{ return counter != 0;});
     this->counter--;
 }
 
-void semaphore::v() {
+void Semaphore::v() {
     std::unique_lock<std::mutex> lock(this->mutex);
     this->counter++;
     this->cond.notify_one();
-}
-
-semaphore::~semaphore() {
-    this->cond.notify_all();
 }
