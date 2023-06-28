@@ -16,7 +16,7 @@ private:
     std::mutex mutex;
 
 public:
-    semaphore();
+    explicit semaphore(int concurrency = 1);
     ~semaphore();
     void p();
     void v();

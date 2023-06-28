@@ -3,22 +3,22 @@
 #include <thread>
 #include "semaphore.h"
 
-#define THREAD_COUNT 100
+#define THREAD_COUNT 10
 
 std::thread* threads[THREAD_COUNT];
-semaphore* sema = new semaphore();;
+semaphore* sema = new semaphore();
 
 void* doSomeThing(int id)
 {
     sema->p();
-    std::cout << "Job " << id << " started " << std::endl;
+    printf("Job %d started\n", id);
 
     for(int i=0; i < 5; ++i) {
-        std::cout << "Job " << id << " is doing something" << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds (100));
+        printf("Job %d is doing something\n", id);
+        std::this_thread::sleep_for(std::chrono::milliseconds (500));
     };
 
-    std::cout << "Job " << id << " finished " << std::endl;
+    printf("Job %d finished\n", id);
     sema->v();
 
     return nullptr;
